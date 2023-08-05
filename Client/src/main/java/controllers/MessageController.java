@@ -22,11 +22,22 @@ public class MessageController {
     // why a HashSet??
 
     public ArrayList<Message> getMessages() {
-        return null;
+        return new ArrayList<>(messagesSeen);
     }
-    public ArrayList<Message> getMessagesForId(Id Id) {
-        return null;
+    public ArrayList<Message> getMessagesForId(String idName) {
+        ArrayList<Message> allMessages = getMessages();
+        int arrayIndex = 0;
+        while(arrayIndex < allMessages.size()){
+            Message temp = allMessages.get(arrayIndex);
+            if(!temp.getToid().equals(idName)) {
+                allMessages.remove(temp);
+            } else {
+                arrayIndex++;
+            }
+        }
+        return allMessages;
     }
+
     public Message getMessageForSequence(String seq) {
         return null;
     }
@@ -45,6 +56,15 @@ public class MessageController {
                 System.out.println(new MessageTextView(msgs.get(i)).toString());
             }
         }
+
+        if (cmd.getCmd() == Command.Verb.MYMSG){
+            messagesSeen = new HashSet<>(tctrl.getMessages());
+            ArrayList<Message> msgs = getMessagesForId(cmd.getArg(1));
+            for (int i = 0; i < msgs.size(); i++) {
+                System.out.println(new MessageTextView(msgs.get(i)).toString());
+            }
+        }
+
         if (cmd.getCmd() == Command.Verb.POSTMSG) {
             Message result = tctrl.postMessage(cmd.getArg(1), cmd.getArg(2), cmd.getRest(3));
             System.out.println(new MessageTextView(result).toString());
