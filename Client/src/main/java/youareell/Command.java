@@ -14,6 +14,7 @@ public class Command {
         POSTID("postid"),
         GETIDS("getids"),
         GETMESG("messages"),
+        MYMSG("MyMessages"),
         POSTMSG("send"),
         // you may need to add more here...
         // for more commands
@@ -82,6 +83,7 @@ public class Command {
             sb.append(tokens[i]);
             sb.append(" ");
         }
+        sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
@@ -134,5 +136,6 @@ public class Command {
     }
 
     private class BadCommand extends Exception {
+
     }
 }

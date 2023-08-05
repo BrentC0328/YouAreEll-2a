@@ -41,7 +41,7 @@ public class MessageController {
     public void doCommand(Command cmd) {
         if (cmd.getCmd() == Command.Verb.GETMESG) {
             List<Message> msgs = tctrl.getMessages();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < msgs.size(); i++) {
                 System.out.println(new MessageTextView(msgs.get(i)).toString());
             }
         }

@@ -19,12 +19,15 @@ public class IdController {
         this.tctrl = tt;
     }
     public ArrayList<Id> getIds() {
+
         return null;
     }
 
     public Id postId(Id id) {
         // create json from id
+
         // call server, get json result Or error
+
         // result json to Id obj
 
         return null;
@@ -37,7 +40,7 @@ public class IdController {
     public void doCommand(Command cmd) {
         if (cmd.getCmd() == Command.Verb.GETIDS) {
             List<Id> ids = tctrl.getIds();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < ids.size(); i++) {
                 System.out.println(new IdTextView(ids.get(i)).toString());
             }
         }
