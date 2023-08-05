@@ -24,13 +24,8 @@ public class IdController {
     }
 
     public Id postId(Id id) {
-        // create json from id
 
-        // call server, get json result Or error
-
-        // result json to Id obj
-
-        return null;
+     return postId(id);
     }
 
     public Id putId(Id id) {
@@ -43,6 +38,10 @@ public class IdController {
             for (int i = 0; i < ids.size(); i++) {
                 System.out.println(new IdTextView(ids.get(i)).toString());
             }
+        }
+        if(cmd.getCmd() == Command.Verb.POSTID){
+            Id result = tctrl.postId(cmd.getArg(1), cmd.getArg(2));
+            System.out.println(new IdTextView(result).toString());
         }
     }
 }
