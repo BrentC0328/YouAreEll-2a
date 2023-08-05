@@ -77,12 +77,43 @@ public class TransactionController {
             HttpResponse response = null;
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 200) {
-                System.out.println("After POST " + response.body());
+                System.out.println("After PUT " + response.body());
 
                 newID = gson.fromJson("" + response.body(), Id.class);
                 return newID;
             } else {
-                System.out.println("Failure of POST" + response.statusCode());
+                System.out.println("Failure of PUT" + response.statusCode());
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        return new Id("failllll!!!","codeNoWork!!!!");
+    }
+    public Id putId(String name, String ghname) {
+        try {
+            Id newID = new Id(name,ghname);
+            Gson gson = new Gson();
+
+            String toSendId = gson.toJson(newID);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(rootURL+"/ids"))
+                    .PUT(HttpRequest.BodyPublishers.ofString(toSendId))
+                    .setHeader("Content-type", "application/json")
+                    .build();
+            HttpResponse response = null;
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                System.out.println("After PUT " + response.body());
+
+                newID = gson.fromJson("" + response.body(), Id.class);
+                return newID;
+            } else {
+                System.out.println("Failure of PUT" + response.statusCode());
             }
 
         } catch (IOException e) {

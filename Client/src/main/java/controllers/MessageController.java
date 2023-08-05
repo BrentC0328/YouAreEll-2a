@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import models.Id;
@@ -18,7 +19,7 @@ public class MessageController {
         this.tctrl = tt;
     }
 
-    private HashSet<Message> messagesSeen;
+    private LinkedHashSet<Message> messagesSeen;
     // why a HashSet??
 
     public ArrayList<Message> getMessages() {
@@ -52,15 +53,15 @@ public class MessageController {
     public void doCommand(Command cmd) {
         if (cmd.getCmd() == Command.Verb.GETMESG) {
             List<Message> msgs = tctrl.getMessages();
-            for (int i = 0; i < msgs.size(); i++) {
+            for (int i = 0; i < 20; i++) {
                 System.out.println(new MessageTextView(msgs.get(i)).toString());
             }
         }
 
         if (cmd.getCmd() == Command.Verb.MYMSG){
-            messagesSeen = new HashSet<>(tctrl.getMessages());
+            messagesSeen = new LinkedHashSet<>(tctrl.getMessages());
             ArrayList<Message> msgs = getMessagesForId(cmd.getArg(1));
-            for (int i = 0; i < msgs.size(); i++) {
+            for (int i = 0; i < 20; i++) {
                 System.out.println(new MessageTextView(msgs.get(i)).toString());
             }
         }

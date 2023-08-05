@@ -39,6 +39,18 @@ public class IdController {
                 System.out.println(new IdTextView(ids.get(i)).toString());
             }
         }
+
+        if (cmd.getCmd() == Command.Verb.UPDATEIDS){
+            List<Id> ids = tctrl.getIds();
+            for (int i = 0; i < ids.size(); i++){
+                String githubCheck = cmd.getArg(2);
+                if(ids.get(i).getGithub().equals(githubCheck)){
+                    tctrl.putId(cmd.getArg(1), githubCheck);
+                    System.out.println(new IdTextView(ids.get(i)).toString());
+                }
+            }
+        }
+
         if(cmd.getCmd() == Command.Verb.POSTID){
             Id result = tctrl.postId(cmd.getArg(1), cmd.getArg(2));
             System.out.println(new IdTextView(result).toString());
