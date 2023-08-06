@@ -50,6 +50,19 @@ public class IdController {
                 }
             }
         }
+        if (cmd.getCmd() == Command.Verb.DELETEIDS){
+            List<Id> ids = tctrl.getIds();
+            for (int i = 0; i < ids.size(); i++){
+                String githubCheck = cmd.getArg(2);
+                String nameCheck = cmd.getArg(1);
+                Boolean nameBoolean = ids.get(i).getName().equals(nameCheck);
+                Boolean githubBoolean = ids.get(i).getGithub().equals(githubCheck);
+
+                if(nameBoolean && githubBoolean){
+                    tctrl.deleteId(nameCheck, githubCheck);
+                }
+            }
+        }
 
         if(cmd.getCmd() == Command.Verb.POSTID){
             Id result = tctrl.postId(cmd.getArg(1), cmd.getArg(2));

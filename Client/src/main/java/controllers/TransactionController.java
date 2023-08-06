@@ -105,8 +105,8 @@ public class TransactionController {
                     .PUT(HttpRequest.BodyPublishers.ofString(toSendId))
                     .setHeader("Content-type", "application/json")
                     .build();
-            HttpResponse response = null;
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
             if (response.statusCode() == 200) {
                 System.out.println("After PUT " + response.body());
 
@@ -116,14 +116,34 @@ public class TransactionController {
                 System.out.println("Failure of PUT" + response.statusCode());
             }
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (URISyntaxException e) {
+        } catch (IOException | InterruptedException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
+
         return new Id("failllll!!!","codeNoWork!!!!");
+    }
+    public void deleteId(String name, String ghname) {
+        try {
+            Id newID = new Id(name,ghname);
+            Gson gson = new Gson();
+
+            String toSendId = gson.toJson(newID);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(rootURL+"/ids"))
+                    .DELETE()
+                    .build();
+            HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                System.out.println("DELETE SUCCESSFUL");
+
+            } else {
+                System.out.println("FALILURE TO DELETE" + response.statusCode());
+            }
+
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Message postMessage(String toHandle, String fromHandle, String messageBody) {

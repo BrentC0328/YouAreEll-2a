@@ -17,8 +17,8 @@ public class Command {
         MYMSG("mymessages"),
         POSTMSG("send"),
         UPDATEIDS("put"),
-        // you may need to add more here...
-        // for more commands
+        DELETEIDS("delete"),
+
         QUIT("quit"),
         HELP("help"),
         ERR("error"),
@@ -112,7 +112,8 @@ public class Command {
         // as you add ENUMs, add more to this condition.
         if (this.currentCmd == Verb.POSTID
         || this.currentCmd == Verb.GETIDS
-                || this.currentCmd == Verb.UPDATEIDS) return true;
+                || this.currentCmd == Verb.UPDATEIDS
+                || this.currentCmd == Verb.DELETEIDS) return true;
         return false;
     }
 
